@@ -20,7 +20,7 @@ class Order(models.Model):
         return self.orderitem_set.aggregate(models.Sum('price')).get('price__sum')
 
     def save(self, *args, **kwargs):
-        self.number = '{0} Заказ:{1}'.format(date.today(), Order.objects.count()+1)
+        self.number = '{0} Заказ:{1}'.format(date.today(), Order.objects.filter(created__date=date.today()).count() + 1)
         super(Order, self).save(*args, **kwargs)
 
     class Meta:
