@@ -11,7 +11,7 @@ class Order(models.Model):
     number = models.CharField(max_length=25, blank=True, editable=False, verbose_name = 'Номер заказа')
     created = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='Дата создания')
     edited = models.DateTimeField(auto_now=True, editable=False, verbose_name='Дата изменения')
-    counteragent = models.ForeignKey(Contragent, on_delete=models.CASCADE, verbose_name='Контрагент')
+    contragent = models.ForeignKey(Contragent, on_delete=models.CASCADE, verbose_name='Контрагент')
 
     def __str__(self):
         return self.number
