@@ -6,6 +6,7 @@ from tastypie.authentication import BasicAuthentication
 from orders.models import Order, OrderItem
 from contragents.api import ContragentResource
 from goods.api import GoodResource
+from orders.models import Order
 
 
 class OrderResource(ModelResource):
