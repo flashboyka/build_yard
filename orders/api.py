@@ -5,20 +5,14 @@ from tastypie.authentication import BasicAuthentication
 
 from orders.models import Order, OrderItem
 from contragents.api import ContragentResource
-
-
-class OrderItemResource(ModelResource):
-    class Meta:
-        queryset = OrderItem.objects.all()
-        resource_name = 'orderitem'
-        authorization = DjangoAuthorization()
-        authentication = BasicAuthentication()
+from goods.api import GoodResource
 
 
 class OrderResource(ModelResource):
-    contragent  = fields.ForeignKey(ContragentResource, 'contragent', full=True)
+    contragent = fields.ForeignKey(ContragentResource, 'contragent', full=True)
     orderitem = fields.ToManyField('orders.api.OrderItemResource',
-                                   'orderitem_set', full=True)
+                                   'orderitem_set', null=True, full=True)
+    price = fields.CharField('price')
 
     class Meta:
         queryset = Order.objects.all()
@@ -26,3 +20,14 @@ class OrderResource(ModelResource):
         authorization = DjangoAuthorization()
         authentication = BasicAuthentication()
         excludes = ['created', 'edited']
+
+
+class OrderItemResource(ModelResource):
+    order = fields.ForeignKey(OrderResource, 'order')
+    good = fields.ForeignKey(GoodResource, 'good')
+
+    class Meta:
+        queryset = OrderItem.objects.all()
+        resource_name = 'orderitem'
+        authorization = DjangoAuthorization()
+        authentication = BasicAuthentication()
