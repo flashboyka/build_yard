@@ -9,21 +9,13 @@ class ContragentTestCase(TestCase):
     '''
     tests for contragent application
     '''
+    fixtures = ['fixture_contragent.json']
 
-    def setUp(self) -> None:
+    def setUp(self):
         '''
         defining required data
         '''
-        self.client = Client()
-        self.client.login(username='admin', password='123654atm')
-        self.contragent = models.Contragent.objects.create(
-            last_name='Иванов',
-            first_name='Иван',
-            middle_name='Иванович',
-            email='iii@mail.ru',
-            phone='5555555',
-            address='ул. Строителей, д. 25, кв. 12'
-        )
+        self.contragent = models.Contragent.objects.last()
 
 
     def test_contragent_str(self):

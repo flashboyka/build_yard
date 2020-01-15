@@ -3,23 +3,19 @@ package: tests
 description: goods
 '''
 from django.test import TestCase
-from django.test import Client
 from . import models
 
 class GoodsTestCase(TestCase):
     '''
     tests for goods application
     '''
-    def setUp(self) -> None:
+    fixtures = ['fixture_good.json']
+
+    def setUp(self):
         '''
         method for defining required data
         '''
-        self.client = Client()
-        self.client.login(username='admin', password='123654atm')
-        self.good = models.Good.objects.create(
-            name='Кирпич',
-            price='10'
-        )
+        self.good = models.Good.objects.last()
 
     def test_goods_str(self):
         '''
