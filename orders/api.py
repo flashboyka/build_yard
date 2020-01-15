@@ -16,7 +16,9 @@ class OrderItemResource(ModelResource):
 
 
 class OrderResource(ModelResource):
-    contragent  = fields.ForeignKey(ContragentResource, 'contragent')
+    contragent  = fields.ForeignKey(ContragentResource, 'contragent', full=True)
+    orderitem = fields.ToManyField('orders.api.OrderItemResource',
+                                   'orderitem_set', full=True)
 
     class Meta:
         queryset = Order.objects.all()
