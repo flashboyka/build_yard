@@ -19,12 +19,13 @@ from django.urls import path, include, re_path
 from tastypie.api import Api
 
 from goods.api import GoodResource
-from orders.api import OrderResource
+from orders.api import OrderResource, OrderItemResource
 from contragents.api import ContragentResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(ContragentResource())
 v1_api.register(OrderResource())
+v1_api.register(OrderItemResource())
 v1_api.register(GoodResource())
 
 urlpatterns = [
